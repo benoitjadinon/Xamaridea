@@ -36,6 +36,7 @@ namespace Xamaridea.Core
         public void Sync(string selectedFile = "")
         {
             var ideaProjectDir = _androidProjectTemplateManager.CreateProjectFromTemplate(Path.Combine(_xamarinProjectPath, ResFolderName));
+			AppendLog("project dir : {0}", ideaProjectDir);
             string arguments = String.Format("\"{0}\"", ideaProjectDir);
             //if (!string.IsNullOrEmpty(selectedFile))
             //{

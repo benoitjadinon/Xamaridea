@@ -43,7 +43,7 @@ namespace Xamaridea.Core
             string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             var tempNewProjectDir = Path.Combine(appData, AppDataFolderName, ProjectsFolderName, Guid.NewGuid().ToString("N"));
             FileExtensions.DirectoryCopy(TemplateDirectory, tempNewProjectDir);
-            var gradleConfig = Path.Combine(tempNewProjectDir, @"app\build.gradle");
+            var gradleConfig = Path.Combine(tempNewProjectDir, Path.Combine(@"app","build.gradle"));
             var configContent = File.ReadAllText(gradleConfig);
             configContent = configContent
                 .Replace(XamarinResourcesFolderVariable, xamarinResourcesDir) //gradle is awesome, it allows us to specify any folder as resource container
