@@ -4,41 +4,49 @@ using Fclp;
 
 namespace Xamaridea.Console
 {
-    class Program
-    {
-		static void Main(string[] args)
+	class Program
+	{
+		//mono Xamaridea.Console.exe --project:/Users/bja/Workspaces/Xamarin/SomeProj/Droid/SomeProj.Droid.csproj
+		static void Main (string[] args)
 		{
-		   var parser = new FluentCommandLineParser<ApplicationArguments>();
+			var parser = new FluentCommandLineParser<ApplicationArguments> ();
 
-			parser.Setup<string>(arg => arg.AndroidStudioPath)
-				.As(CaseType.CaseInsensitive, "a","aspath")
-				.SetDefault(null)
-#if DEBUG
-				//.SetDefault(@"C:\Program Files\Android\Android Studio\bin\studio64.exe")
-#endif
+			var pAS = parser.Setup<string> (arg => arg.AndroidStudioPath)
+				.As (CaseType.CaseInsensitive, "a", "aspath")
+				.WithDescription("Path to Android Studio application")
+				;
+			try {
+				pAS.SetDefault (AndroidIdeDetector.TryFindIdePath ());
+			} catch (System.Exception ex) {
+				pAS.Required ();
+			}
+
+			var pProj = parser.Setup<string> (arg => arg.XamarinProjectPath)
+				.As (CaseType.CaseInsensitive, "p", "project")
+				.WithDescription("Path to a Xamarin.Android .csproj file")
+				.Required ()
 				;
 
-			parser.Setup<string>(arg => arg.XamarinProjectPath)
-				.As(CaseType.CaseInsensitive, "p","project")
-				.SetDefault(null)//TODO: find csproj in executing path
-#if DEBUG
-				//.SetDefault(@"C:\Projects\_[______________\KinderChat\Android\KinderChat.Android.csproj")
-				.SetDefault("/Users/bja/Workspaces/Xamarin/MobilityWeek/Droid/MobilityWeek.Droid.csproj")
-#endif
+			parser.Setup<string> (arg => arg.AndroidSDKPath)
+				.As (CaseType.CaseInsensitive, "s", "sdk")
+				.WithDescription("Path to the Android SDK folder")
+				.SetDefault (null)
 				;
 
-			parser.SetupHelp("?", "h", "help")
-				.Callback(text => System.Console.WriteLine(text));
+			parser.SetupHelp ("?", "h", "help")
+				.Callback (text => System.Console.WriteLine (text));
 
-		    var result = parser.Parse(args);
+			var result = parser.Parse (args);
 
 			if (!result.HasErrors) {
 				//Task.Run(async () => await new ConsoleReceiver().RunAsync(parser.Object));
-				new ConsoleReceiver().RunAsync(parser.Object);
+				new ConsoleReceiver ().RunAsync (parser.Object);
 				//System.Console.WriteLine(res);
-				System.Console.ReadKey();
+				System.Console.ReadKey ();
+			} else {
+				System.Console.WriteLine (result.ErrorText);
+				parser.HelpOption.ShowHelp(parser.Options);
 			}
-			else System.Console.WriteLine(result.ErrorText);
 		}
-    }
+	}
 }

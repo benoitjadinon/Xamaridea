@@ -12,16 +12,21 @@ namespace Xamaridea.Core
 	{
 		public const string AndroidTemplateProjectResourceName = "Xamaridea.Core.AndroidProjectTemplate.zip";
 		public const string AppDataFolderName = "Xamaridea";
-		public const string TemplateFolderName = "Template_v.0.7";
+		public const string TemplateFolderName = "Template_v.0.8";//TODO: use template zip md5 to compare versions
 		public const string ProjectsFolderName = "Projects";
 		public const string XamarinResourcesFolderVariable = "%XAMARIN_RESOURCES_FOLDER%";
+		public const string AndroidSDKFolderVariable = "%ANDROID_SDK_FOLDER%";
 
 		public void Reset ()
 		{
-			var templateDir = TemplateDirectory;
-			if (Directory.Exists (templateDir))
-				Directory.Delete (templateDir, true);
+			DeleteTemplate();
 			ExtractTemplate ();
+		}
+
+		public void DeleteTemplate ()
+		{
+			if (Directory.Exists (TemplateDirectory))
+				Directory.Delete (TemplateDirectory, true);
 		}
 
 		public void ExtractTemplateIfNotExtracted ()
@@ -48,19 +53,32 @@ namespace Xamaridea.Core
 			}
 		}
 
-		public string CreateProjectFromTemplate (string xamarinResourcesDir)
+		public string CreateProjectFromTemplate (string xamarinResourcesDir, string sdkPath = null)
 		{
 			string appData = Environment.GetFolderPath (Environment.SpecialFolder.ApplicationData);
 			var tempNewProjectDir = Path.Combine (appData, AppDataFolderName, ProjectsFolderName, Guid.NewGuid ().ToString ("N"));
 			FileExtensions.DirectoryCopy (TemplateDirectory, tempNewProjectDir);
-			var gradleConfig = Path.Combine (tempNewProjectDir, Path.Combine (@"app", "build.gradle"));
-			var configContent = File.ReadAllText (gradleConfig);
-			configContent = configContent
-                .Replace (XamarinResourcesFolderVariable, xamarinResourcesDir) //gradle is awesome, it allows us to specify any folder as resource container
-                .Replace (@"\", "/"); //change backslashes to common ones
 
-			File.WriteAllText (gradleConfig, configContent);
+			//gradle
+			var gradleConfig = Path.Combine (tempNewProjectDir, Path.Combine (@"app", "build.gradle"));
+			ReplacePlaceHolder(gradleConfig, XamarinResourcesFolderVariable, xamarinResourcesDir, true);
+
+			if (sdkPath != null) {
+				//local.properties
+				var localProperties = Path.Combine (tempNewProjectDir, "local.properties");
+				ReplacePlaceHolder(localProperties, AndroidSDKFolderVariable, sdkPath, true);
+			}
+
 			return tempNewProjectDir;
+		}
+
+		void ReplacePlaceHolder (string file, string search, string replace, bool fixPaths = false)
+		{
+			var content = File.ReadAllText (file);
+			content = content.Replace (search, replace); //gradle is awesome, it allows us to specify any folder as resource container
+			if (fixPaths)
+                content = content.Replace (@"\", "/"); //change backslashes to common ones
+			File.WriteAllText (file, content);
 		}
 
 		private string TemplateDirectory {

@@ -1,0 +1,18 @@
+﻿<Properties StartupItem="Xamaridea.Console/Xamaridea.Console.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Xamaridea.Console/Program.cs">
+    <Files>
+      <File FileName="Xamaridea.Console/Program.cs" Line="33" Column="25" />
+      <File FileName="Xamaridea.Console/ConsoleReceiver.cs" Line="13" Column="1" />
+      <File FileName="Xamaridea.Core/AndroidProjectTemplateManager.cs" Line="51" Column="29" />
+      <File FileName="Xamaridea.Core/ProjectsSynchronizer.cs" Line="43" Column="7" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/bja/Workspaces/Xamarin/Xamaridea/Xamaridea.Core/AndroidProjectTemplateManager.cs" line="38" column="33" />
+      <Breakpoint file="/Users/bja/Workspaces/Xamarin/Xamaridea/Xamaridea.Console/Program.cs" line="47" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

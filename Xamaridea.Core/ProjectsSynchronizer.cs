@@ -15,6 +15,8 @@ namespace Xamaridea.Core
 		private readonly string _xamarinProjectPath;
 		private readonly string _projectName;
 		private readonly string _anideExePath;
+		private readonly string _sdkPath;
+
 		private bool _grantedPermissionsToChangeMainProject = false;
 
 		public const string ResFolderName = "Resources";
@@ -22,7 +24,7 @@ namespace Xamaridea.Core
 		/// <param name="xamarinProjectPath">Path to root Android xamarin project </param>
 		/// <param name="projectName">*.csproj file name</param>
 		/// <param name="anideExePath">anide = Android Native IDE (i.e. Android Studio, IDEA, etc (with gradle support))</param>
-		public ProjectsSynchronizer (string xamarinProjectPath, string anideExePath)
+		public ProjectsSynchronizer (string xamarinProjectPath, string anideExePath, string androidSDKPath = null)
 		{
 			if (xamarinProjectPath == null)
 				throw new ArgumentNullException ("xamarinProjectPath");
@@ -33,11 +35,13 @@ namespace Xamaridea.Core
 			_projectName = Path.GetFileNameWithoutExtension (xamarinProjectPath);
 			_anideExePath = anideExePath;
 			_androidProjectTemplateManager.ExtractTemplateIfNotExtracted ();
+			_sdkPath = androidSDKPath;
 		}
 
 		public void Sync (string selectedFile = "")
 		{
-			var ideaProjectDir = _androidProjectTemplateManager.CreateProjectFromTemplate (Path.Combine (_xamarinProjectPath, ResFolderName));
+			var resFolder = Path.Combine (_xamarinProjectPath, ResFolderName);
+			var ideaProjectDir = _androidProjectTemplateManager.CreateProjectFromTemplate (resFolder, _sdkPath);
 			AppendLog ("project dir : {0}", ideaProjectDir);
 			//if (!string.IsNullOrEmpty(selectedFile))
 			//{
@@ -53,14 +57,22 @@ namespace Xamaridea.Core
 				) {
 					UseShellExecute = false,
 					CreateNoWindow = true,
+					RedirectStandardError = true,
+					RedirectStandardOutput = true,
 				});
 			} else {
 				string arguments = String.Format ("\"{0}\"", ideaProjectDir);
 				p = Process.Start (_anideExePath, arguments); //TODO: specify exact file
 			}
 			p?.WaitForExit();
-			//TODO test with timer if wait for exit worked
-			_androidProjectTemplateManager.Reset ();
+			DeleteProject(ideaProjectDir);
+		}
+
+		void DeleteProject (string ideaProjectDir)
+		{
+			if (Directory.Exists (ideaProjectDir))
+				Directory.Delete (ideaProjectDir, true);
+
 		}
 
 		/// <summary>
