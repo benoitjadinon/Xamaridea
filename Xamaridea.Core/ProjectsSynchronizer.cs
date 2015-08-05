@@ -43,18 +43,24 @@ namespace Xamaridea.Core
 			//{
 			//    arguments += string.Format(" --line 1 \"{0}\"", selectedFile);
 			//}
+			Process p;
 			if (EnvironmentUtils.IsRunningOnMac ()) {
-				Process.Start (new ProcessStartInfo (
-					"open",
-					string.Format ("-a '{0}' {1}", _anideExePath, ideaProjectDir.Replace (" ", "\\ "))
-					){
-				    	UseShellExecute = false,
-				    	CreateNoWindow = true,
-				    });
+				p = Process.Start (new ProcessStartInfo (
+					//"open",
+					//string.Format ("-a '{0}' {1}", _anideExePath, ideaProjectDir.Replace (" ", "\\ "))
+					string.Format ("{0}{1}", _anideExePath, "/Contents/MacOS/studio"),
+					ideaProjectDir.Replace (" ", "\\ ")
+				) {
+					UseShellExecute = false,
+					CreateNoWindow = true,
+				});
 			} else {
 				string arguments = String.Format ("\"{0}\"", ideaProjectDir);
-				Process.Start (_anideExePath, arguments); //TODO: specify exact file
+				p = Process.Start (_anideExePath, arguments); //TODO: specify exact file
 			}
+			p?.WaitForExit();
+			//TODO test with timer if wait for exit worked
+			_androidProjectTemplateManager.Reset ();
 		}
 
 		/// <summary>
