@@ -69,7 +69,7 @@ namespace Xamaridea.Core.Extensions
             return (attr & FileAttributes.Directory) == FileAttributes.Directory;
         }
 
-        public static void DirectoryCopy(string sourceDirName, string destDirName)
+        public static void DirectoryCopy(string sourceDirName, string destDirName, bool overwrite = false)
         {
             var dir = new DirectoryInfo(sourceDirName);
             var dirs = dir.GetDirectories();
@@ -88,13 +88,13 @@ namespace Xamaridea.Core.Extensions
             foreach (var file in files)
             {
                 string temppath = Path.Combine(destDirName, file.Name);
-                file.CopyTo(temppath, false);
+                file.CopyTo(temppath, overwrite);
             }
 
             foreach (var subdir in dirs)
             {
                 string temppath = Path.Combine(destDirName, subdir.Name);
-                DirectoryCopy(subdir.FullName, temppath);
+                DirectoryCopy(subdir.FullName, temppath, overwrite);
             }
         }
 

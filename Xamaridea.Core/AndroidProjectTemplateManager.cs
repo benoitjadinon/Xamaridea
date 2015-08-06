@@ -46,17 +46,18 @@ namespace Xamaridea.Core
 		{
 			externalTemplatePath = templatePath;
 
+			AppendLog("extracting template...");
 			ExtractTemplateIfNotExtracted();
 
-			//creating temp dest dir
+			AppendLog("creating temp dest dir");
 			var tempNewProjectDir = Path.Combine (TempDirectory, ProjectsFolderName, Guid.NewGuid ().ToString ("N"));
 			FileExtensions.DirectoryCopy (TemplateDirectory, tempNewProjectDir);
 
-			//gradle
+			AppendLog("updating gradle script");
 			var gradleConfig = Path.Combine (tempNewProjectDir, Path.Combine (@"app", "build.gradle"));
 			FileExtensions.ReplacePlaceHolder(gradleConfig, XamarinResFolderVariable, xamarinResourcesDir, true);
 
-			//local.properties
+			AppendLog("updating local.properties");
 			var localProperties = Path.Combine (tempNewProjectDir, @"local.properties");
 			FileExtensions.ReplacePlaceHolder(localProperties, AndroidSDKFolderVariable, sdkPath ?? "$ANDROID_HOME", true);
 
@@ -96,23 +97,26 @@ namespace Xamaridea.Core
 		{
 			if (externalTemplatePath != null || !Directory.Exists (TemplateDirectory)) {
 				ExtractTemplate ();
-			}
+			}else
+				AppendLog("extraction not needed");
 		}
 
 		private void ExtractTemplate ()
 		{
 			if (externalTemplatePath != null) {
 				if (File.Exists (externalTemplatePath) && Path.GetExtension (externalTemplatePath).Contains ("zip")) {
+					AppendLog("extracting custom zip template");
 					using (var fileStream = File.Open (externalTemplatePath, FileMode.Open)) {
 						ExtractTemplateZip (fileStream);
 					}
 					return;
 				} else if (Directory.Exists (externalTemplatePath)) {
-					FileExtensions.DirectoryCopy(externalTemplatePath, TemplateDirectory);
+					AppendLog("extracting template folder");
+					FileExtensions.DirectoryCopy(externalTemplatePath, TemplateDirectory, true);
 					return;
 				}
 
-				Console.WriteLine("cannot extract external template, falling back to embedded template");
+				AppendLog("cannot extract external template, falling back to embedded template");
 			}
 
 			using (var embeddedStream = Assembly.GetExecutingAssembly ().GetManifestResourceStream (AndroidTemplateProjectResourceName)) {
@@ -129,6 +133,11 @@ namespace Xamaridea.Core
 			using (var archive = new ZipArchive (embeddedStream, ZipArchiveMode.Read)) {
 				archive.ExtractToDirectory (TemplateDirectory);
 			}
+		}
+
+		private void AppendLog (string format, params object[] args)
+		{
+			Console.WriteLine (" > " + format, args);
 		}
 	}
 }

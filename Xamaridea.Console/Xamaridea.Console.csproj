@@ -20,7 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Commandlineparameters>-project:/Users/bja/Workspaces/Xamarin/MobilityWeek/Droid/MobilityWeek.Droid.csproj -sdk:/Users/bja/SDKs/android-sdk-macosx -template:/Users/bja/Workspaces/Xamarin/Xamaridea/CustomTemplate</Commandlineparameters>
+    <Commandlineparameters>-p=/Users/bja/Workspaces/Xamarin/MobilityWeek/Droid/MobilityWeek.Droid.csproj -t=/Users/bja/Workspaces/Xamarin/Xamaridea/CustomTemplate</Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -40,7 +40,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="FluentCommandLineParser">
-      <HintPath>..\packages\Pingo.FluentCommandLineParser.1.0.25\lib\net45\FluentCommandLineParser.dll</HintPath>
+      <HintPath>..\packages\FluentCommandLineParser.1.4.3\lib\net35\FluentCommandLineParser.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

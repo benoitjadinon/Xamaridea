@@ -47,7 +47,7 @@ namespace Xamaridea.Core
 				xamarinResourcesDir: resFolder, 
 				sdkPath: args.AndroidSDKPath, 
 				templatePath:args.CustomTemplatePath
-				);
+			);
 
 			AppendLog ("created project dir : {0}", ideaProjectDir);
 
@@ -77,7 +77,7 @@ namespace Xamaridea.Core
 				p = Process.Start (args.AndroidStudioPath, arguments); //TODO: specify exact file
 			}
 			p?.WaitForExit();
-			AppendLog("Android Studio closed, deleting temp project");
+			AppendLog("closed Android Studio, deleting temp project");
 			DeleteProject(ideaProjectDir);
 		}
 
@@ -166,7 +166,7 @@ namespace Xamaridea.Core
 
 		private void AppendLog (string format, params object[] args)
 		{
-			Debug.WriteLine (" > " + format, args);
+			Console.WriteLine (" > " + format, args);
 		}
 	}
 }
