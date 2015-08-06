@@ -20,7 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Commandlineparameters>-project:/Users/bja/Workspaces/Xamarin/MobilityWeek/Droid/MobilityWeek.Droid.csproj -sdk:/Users/bja/SDKs/android-sdk-macosx</Commandlineparameters>
+    <Commandlineparameters>-project:/Users/bja/Workspaces/Xamarin/MobilityWeek/Droid/MobilityWeek.Droid.csproj -sdk:/Users/bja/SDKs/android-sdk-macosx -template:/Users/bja/Workspaces/Xamarin/Xamaridea/CustomTemplate</Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>

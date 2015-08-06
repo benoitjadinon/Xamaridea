@@ -11,48 +11,59 @@ namespace Xamaridea.Core
 {
 	public class ProjectsSynchronizer
 	{
+		public const string ResFolderName = "Resources";
+
+		private ApplicationArguments args;
+
 		private readonly AndroidProjectTemplateManager _androidProjectTemplateManager = new AndroidProjectTemplateManager ();
+
 		private readonly string _xamarinProjectPath;
 		private readonly string _projectName;
-		private readonly string _anideExePath;
-		private readonly string _sdkPath;
 
 		private bool _grantedPermissionsToChangeMainProject = false;
 
-		public const string ResFolderName = "Resources";
 
-		/// <param name="xamarinProjectPath">Path to root Android xamarin project </param>
-		/// <param name="projectName">*.csproj file name</param>
-		/// <param name="anideExePath">anide = Android Native IDE (i.e. Android Studio, IDEA, etc (with gradle support))</param>
 		public ProjectsSynchronizer (string xamarinProjectPath, string anideExePath, string androidSDKPath = null)
-		{
-			if (xamarinProjectPath == null)
-				throw new ArgumentNullException ("xamarinProjectPath");
-			if (anideExePath == null)
-				throw new ArgumentNullException ("anideExePath");
+			:this(new ApplicationArguments(){
+					XamarinProjectPath = xamarinProjectPath,
+					AndroidStudioPath = anideExePath,
+					AndroidSDKPath = androidSDKPath,
+			})
+		{}
 
-			_xamarinProjectPath = Path.GetDirectoryName (xamarinProjectPath);
-			_projectName = Path.GetFileNameWithoutExtension (xamarinProjectPath);
-			_anideExePath = anideExePath;
-			_androidProjectTemplateManager.ExtractTemplateIfNotExtracted ();
-			_sdkPath = androidSDKPath;
+		public ProjectsSynchronizer (ApplicationArguments args)
+		{
+			this.args = args;
+
+			_xamarinProjectPath = Path.GetDirectoryName (args.XamarinProjectPath);
+			_projectName = Path.GetFileNameWithoutExtension (args.XamarinProjectPath);
 		}
+
 
 		public void Sync (string selectedFile = "")
 		{
 			var resFolder = Path.Combine (_xamarinProjectPath, ResFolderName);
-			var ideaProjectDir = _androidProjectTemplateManager.CreateProjectFromTemplate (resFolder, _sdkPath);
-			AppendLog ("project dir : {0}", ideaProjectDir);
+			var ideaProjectDir = _androidProjectTemplateManager.CreateProjectFromTemplate (
+				xamarinResourcesDir: resFolder, 
+				sdkPath: args.AndroidSDKPath, 
+				templatePath:args.CustomTemplatePath
+				);
+
+			AppendLog ("created project dir : {0}", ideaProjectDir);
+
 			//if (!string.IsNullOrEmpty(selectedFile))
 			//{
 			//    arguments += string.Format(" --line 1 \"{0}\"", selectedFile);
 			//}
+
+			AppendLog("Opening Android Studio");
 			Process p;
 			if (EnvironmentUtils.IsRunningOnMac ()) {
 				p = Process.Start (new ProcessStartInfo (
+					//less crap in the console with 'open', but cannot WaitForExit()
 					//"open",
 					//string.Format ("-a '{0}' {1}", _anideExePath, ideaProjectDir.Replace (" ", "\\ "))
-					string.Format ("{0}{1}", _anideExePath, "/Contents/MacOS/studio"),
+					string.Format ("{0}{1}", args.AndroidStudioPath, "/Contents/MacOS/studio"),
 					ideaProjectDir.Replace (" ", "\\ ")
 				) {
 					UseShellExecute = false,
@@ -62,9 +73,8 @@ namespace Xamaridea.Core
 				});
 			} else {
 				string arguments = String.Format ("\"{0}\"", ideaProjectDir);
-				p = Process.Start (_anideExePath, arguments); //TODO: specify exact file
+				p = Process.Start (args.AndroidStudioPath, arguments); //TODO: specify exact file
 			}
-			AppendLog("Opening Android Studio");
 			p?.WaitForExit();
 			AppendLog("Android Studio closed, deleting temp project");
 			DeleteProject(ideaProjectDir);
@@ -74,7 +84,6 @@ namespace Xamaridea.Core
 		{
 			if (Directory.Exists (ideaProjectDir))
 				Directory.Delete (ideaProjectDir, true);
-
 		}
 
 		/// <summary>
@@ -137,7 +146,7 @@ namespace Xamaridea.Core
 				var includeAttr = androidResNode.Attribute ("Include");
 				if (includeAttr != null) {
 					var value = includeAttr.Value ?? "";
-					if (value.StartsWith (ResFolderName) && value.EndsWith (".axml", StringComparison.InvariantCultureIgnoreCase)) {
+					if (value.StartsWith (ResFolderName, StringComparison.InvariantCultureIgnoreCase) && value.EndsWith (".axml", StringComparison.InvariantCultureIgnoreCase)) {
 						var newValue = value.Remove (value.Length - "axml".Length, 1); //remove that "a" from axml to become a just xml
 						includeAttr.SetValue (newValue);
 						changed = true;

@@ -55,6 +55,7 @@
     <Compile Include="ProjectsSynchronizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensions\EnvironmentUtils.cs" />
+    <Compile Include="ApplicationArguments.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AndroidProjectTemplate.zip" />

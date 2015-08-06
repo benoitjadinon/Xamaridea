@@ -11,6 +11,9 @@ namespace Xamaridea.Console
 		{
 			var parser = new FluentCommandLineParser<ApplicationArguments> ();
 
+
+			//AndroidStudioPath
+
 			var pAS = parser.Setup<string> (arg => arg.AndroidStudioPath)
 				.As (CaseType.CaseInsensitive, "a", "aspath")
 				.WithDescription("Path to Android Studio application")
@@ -21,11 +24,17 @@ namespace Xamaridea.Console
 				pAS.Required ();
 			}
 
+
+			// XamarinProjectPath
+
 			var pProj = parser.Setup<string> (arg => arg.XamarinProjectPath)
 				.As (CaseType.CaseInsensitive, "p", "project")
 				.WithDescription("Path to a Xamarin.Android .csproj file")
 				.Required ()
 				;
+
+
+			// AndroidSDKPath
 
 			parser.Setup<string> (arg => arg.AndroidSDKPath)
 				.As (CaseType.CaseInsensitive, "s", "sdk")
@@ -33,10 +42,26 @@ namespace Xamaridea.Console
 				.SetDefault (null)
 				;
 
+
+			// CustomTemplatePath
+
+			parser.Setup<string> (arg => arg.CustomTemplatePath)
+				.As (CaseType.CaseInsensitive, "t", "template")
+				.WithDescription("Path to a custom android project template (zip or directory)")
+				.SetDefault (null)
+				;
+
+
+			// Help
 			parser.SetupHelp ("?", "h", "help")
 				.Callback (text => System.Console.WriteLine (text));
 
+
+			// Parse args
+
 			var result = parser.Parse (args);
+
+			//
 
 			if (!result.HasErrors) {
 				//Task.Run(async () => await new ConsoleReceiver().RunAsync(parser.Object));

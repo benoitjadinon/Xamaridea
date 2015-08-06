@@ -97,5 +97,14 @@ namespace Xamaridea.Core.Extensions
                 DirectoryCopy(subdir.FullName, temppath);
             }
         }
+
+		public static void ReplacePlaceHolder (string file, string search, string replace, bool fixPaths = false)
+		{
+			var content = File.ReadAllText (file);
+			content = content.Replace (search, replace); //gradle is awesome, it allows us to specify any folder as resource container
+			if (fixPaths)
+                content = content.Replace (@"\", "/"); //change backslashes to common ones
+			File.WriteAllText (file, content);
+		}
     }
 }
