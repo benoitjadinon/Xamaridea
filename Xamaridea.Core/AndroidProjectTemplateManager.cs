@@ -11,11 +11,15 @@ namespace Xamaridea.Core
 	public class AndroidProjectTemplateManager
 	{
 		public const string AndroidTemplateProjectResourceName = "Xamaridea.Core.AndroidProjectTemplate.zip";
+
 		public const string AppDataFolderName = "Xamaridea";
+
 		public const string TemplateFolderName = "Template_v.0.8";//TODO: use template zip md5 to compare versions instead ?
 		public const string TemplateCustomFolderName = "Template_Custom";
+
 		public const string ProjectsFolderName = "Projects";
-		public const string XamarinResourcesFolderVariable = "%XAMARIN_RESOURCES_FOLDER%";
+
+		public const string XamarinResFolderVariable = "%XAMARIN_RESOURCES_FOLDER%";
 		public const string AndroidSDKFolderVariable = "%ANDROID_SDK_FOLDER%";
 
 		string externalTemplatePath = null;
@@ -50,11 +54,11 @@ namespace Xamaridea.Core
 
 			//gradle
 			var gradleConfig = Path.Combine (tempNewProjectDir, Path.Combine (@"app", "build.gradle"));
-			FileExtensions.ReplacePlaceHolder(gradleConfig, XamarinResourcesFolderVariable, xamarinResourcesDir, true);
+			FileExtensions.ReplacePlaceHolder(gradleConfig, XamarinResFolderVariable, xamarinResourcesDir, true);
 
 			//local.properties
 			var localProperties = Path.Combine (tempNewProjectDir, @"local.properties");
-			FileExtensions.ReplacePlaceHolder(localProperties, AndroidSDKFolderVariable, sdkPath ?? "", true);
+			FileExtensions.ReplacePlaceHolder(localProperties, AndroidSDKFolderVariable, sdkPath ?? "$ANDROID_HOME", true);
 
 			return tempNewProjectDir;
 		}
@@ -71,7 +75,7 @@ namespace Xamaridea.Core
 				if (EnvironmentUtils.IsRunningOnMac())
 					appData = "/tmp";
 				else 
-					appData = Environment.GetFolderPath (Environment.SpecialFolder.ApplicationData);
+					appData = Path.GetTempPath();
 				return Path.Combine (appData, AppDataFolderName);
 			}
 		}
