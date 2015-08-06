@@ -64,7 +64,9 @@ namespace Xamaridea.Core
 				string arguments = String.Format ("\"{0}\"", ideaProjectDir);
 				p = Process.Start (_anideExePath, arguments); //TODO: specify exact file
 			}
+			AppendLog("Opening Android Studio");
 			p?.WaitForExit();
+			AppendLog("Android Studio closed, deleting temp project");
 			DeleteProject(ideaProjectDir);
 		}
 

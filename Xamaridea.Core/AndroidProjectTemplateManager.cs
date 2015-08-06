@@ -31,8 +31,7 @@ namespace Xamaridea.Core
 
 		public void ExtractTemplateIfNotExtracted ()
 		{
-			var templateDir = TemplateDirectory;
-			if (!Directory.Exists (templateDir)) {
+			if (!Directory.Exists (TemplateDirectory)) {
 				ExtractTemplate ();
 			}
 		}
@@ -55,19 +54,16 @@ namespace Xamaridea.Core
 
 		public string CreateProjectFromTemplate (string xamarinResourcesDir, string sdkPath = null)
 		{
-			string appData = Environment.GetFolderPath (Environment.SpecialFolder.ApplicationData);
-			var tempNewProjectDir = Path.Combine (appData, AppDataFolderName, ProjectsFolderName, Guid.NewGuid ().ToString ("N"));
+			var tempNewProjectDir = Path.Combine (TempDirectory, ProjectsFolderName, Guid.NewGuid ().ToString ("N"));
 			FileExtensions.DirectoryCopy (TemplateDirectory, tempNewProjectDir);
 
 			//gradle
 			var gradleConfig = Path.Combine (tempNewProjectDir, Path.Combine (@"app", "build.gradle"));
 			ReplacePlaceHolder(gradleConfig, XamarinResourcesFolderVariable, xamarinResourcesDir, true);
 
-			if (sdkPath != null) {
-				//local.properties
-				var localProperties = Path.Combine (tempNewProjectDir, "local.properties");
-				ReplacePlaceHolder(localProperties, AndroidSDKFolderVariable, sdkPath, true);
-			}
+			//local.properties
+			var localProperties = Path.Combine (tempNewProjectDir, @"local.properties");
+			ReplacePlaceHolder(localProperties, AndroidSDKFolderVariable, sdkPath ?? "", true);
 
 			return tempNewProjectDir;
 		}
@@ -83,8 +79,18 @@ namespace Xamaridea.Core
 
 		private string TemplateDirectory {
 			get {
-				string appData = Environment.GetFolderPath (Environment.SpecialFolder.ApplicationData);
-				return Path.Combine (appData, AppDataFolderName, TemplateFolderName);
+				return Path.Combine (TempDirectory, TemplateFolderName);
+			}
+		}
+
+		private string TempDirectory {
+			get {
+				string appData;
+				if (EnvironmentUtils.IsRunningOnMac())
+					appData = "/tmp";
+				else 
+					appData = Environment.GetFolderPath (Environment.SpecialFolder.ApplicationData);
+				return Path.Combine (appData, AppDataFolderName);
 			}
 		}
 
