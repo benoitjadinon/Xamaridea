@@ -59,11 +59,12 @@ namespace Xamaridea.Core
 			AppendLog("Opening Android Studio");
 			Process p;
 			if (EnvironmentUtils.IsRunningOnMac ()) {
+				var path = string.Format ("{0}{1}", args.AndroidStudioPath, "/Contents/MacOS/studio");
+				if (!File.Exists(path))
+					path = string.Format ("{0}{1}", args.AndroidStudioPath, "/Contents/MacOS/idea");
+
 				p = Process.Start (new ProcessStartInfo (
-					//less crap in the console with 'open', but cannot WaitForExit()
-					//"open",
-					//string.Format ("-a '{0}' {1}", _anideExePath, ideaProjectDir.Replace (" ", "\\ "))
-					string.Format ("{0}{1}", args.AndroidStudioPath, "/Contents/MacOS/studio"),
+					path,
 					ideaProjectDir.Replace (" ", "\\ ")
 				) {
 					UseShellExecute = false,
