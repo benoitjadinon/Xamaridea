@@ -49,7 +49,7 @@ namespace Xamaridea.Core
 				templatePath:args.CustomTemplatePath
 			);
 
-			AppendLog ("created project dir : {0}", ideaProjectDir);
+			AppendLog ("created project dir: {0}", ideaProjectDir);
 
 			//if (!string.IsNullOrEmpty(selectedFile))
 			//{
