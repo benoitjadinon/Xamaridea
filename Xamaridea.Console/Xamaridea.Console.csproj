@@ -20,7 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Commandlineparameters>-p=/Users/bja/Workspaces/Xamarin/MobilityWeek/Droid/MobilityWeek.Droid.csproj -t=/Users/bja/Workspaces/Xamarin/Xamaridea/CustomTemplate</Commandlineparameters>
+    <Commandlineparameters>-project="/Users/bja/Workspaces/Xamarin/radiocontact/RadioContact/RadioContact.Droid/RadioContact.Droid.csproj" -template="/Users/bja/Workspaces/Xamarin/radiocontact/tools/AndroidProjectTemplate-0.9.zip"</Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>

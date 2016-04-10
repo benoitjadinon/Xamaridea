@@ -24,7 +24,7 @@ Plugin will help!
        -template="C:\My Documents\CustomTemplate"
 ### Mac
 
-    mono Xamaridea.Console.exe 
-       -project="/Users/XXX/SomeProject/Android/Android.csproj" 
-       -sdk="/Users/XXX/SDKs/android-sdk-macosx" 
-       -template="/Users/XXX/CustomTemplate"       
+    mono Xamaridea.Console.exe \
+     -project="/Users/XXX/SomeProject/Android/Android.csproj" \
+     -sdk="/Users/XXX/SDKs/android-sdk-macosx" \
+     -template="/Users/XXX/CustomTemplate" \

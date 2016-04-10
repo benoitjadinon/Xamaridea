@@ -2,6 +2,9 @@
 using System.IO;
 using System.Linq;
 using System.Diagnostics;
+using System.Linq.Expressions;
+using System.Security.Policy;
+using System.Data.Common;
 
 namespace Xamaridea.Core
 {
@@ -18,6 +21,8 @@ namespace Xamaridea.Core
 			throw new ApplicationException ("unsupported platform : " + Environment.OSVersion.Platform);
 		}
 
+		const string FallbackIntelliJ = "IntelliJ IDEA";
+
 		static string GetForMac (string ideName = "Android Studio")
 		{
 			string path = null;
@@ -28,22 +33,62 @@ namespace Xamaridea.Core
 				proc.StartInfo.UseShellExecute = false;
 				proc.StartInfo.RedirectStandardOutput = true;
 				proc.StartInfo.RedirectStandardError = true;
+				proc.StartInfo.RedirectStandardInput = true;
 				proc.StartInfo.CreateNoWindow = true;
 				proc.Start ();
 
-				path = proc.StandardOutput.ReadLine (); //TODO: async
-				if (path != null && path.Contains (":")) {
-					var paths = path.Trim ().Split (':');
-					path = paths.Last ()?.Trim ();
-				}
-			} catch (Exception ignored) {
-				Console.WriteLine("cannot find {0}", ideName);
+				var pathsString = proc.StandardOutput.ReadToEnd();
+				if (!string.IsNullOrEmpty (pathsString)) {
+					var paths = pathsString.Split (Environment.NewLine.ToCharArray ())
+						.Select (line => line.Trim ())
+						.Where (line => line.StartsWith ("path:") 
+							&& line.Contains (ideName) 
+							&& line.EndsWith (".app")
+							&& !line.Contains ("Time Machine")
+						)
+						.Select(line => line.Split (':') [1].Trim ()/*todo : regexp*/)
+						.Distinct()
+						.ToList();
+
+					if (paths.Any ()) {
+						if (IsConsoleApplication){
+							Console.WriteLine ("please choose the right {0} :", ideName);
+							for (int i = 0; i < paths.Count (); i++) {
+								Console.WriteLine ("[{0}] {1}", (i + 1), paths [i]);
+							}
+							int posEntered = 0;
+							if (paths.Count() >= 10) {
+								var pos = Console.ReadLine();
+								int.TryParse (pos, out posEntered);
+							} else {
+								var inchar = Console.ReadKey(true);
+								if (char.IsDigit(inchar.KeyChar))
+									int.TryParse (inchar.KeyChar.ToString(), out posEntered);
+							}
+							Console.WriteLine("> {0}", posEntered);
+							path = paths [posEntered-1];
+						} else {
+							//throw new Exception ("multiple IDEs found");
+							path = paths[0]; //TODO : UI in IDE ?
+						}
+					} else 
+						throw new FileNotFoundException ("IDE does not seem to be installed");
+				} else
+					throw new FileNotFoundException ("IDE does not seem to be installed");
+
+			} catch (Exception e) {
+				Console.WriteLine("cannot find {0} : {1}", ideName, e.Message);
 			}
-			if (path == null && ideName == "Android Studio") {
+			if (path == null && ideName != FallbackIntelliJ) {
 				Console.WriteLine("searching for IntelliJ IDEA...");
-				return GetForMac ("IntelliJ IDEA");
+				return GetForMac (FallbackIntelliJ);
 			}
 			return path;
+		}
+
+		public static bool IsConsoleApplication
+		{
+			get { return Console.In != StreamReader.Null; }
 		}
 
 		static string GetForWindows ()

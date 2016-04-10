@@ -58,9 +58,6 @@
     <Compile Include="ApplicationArguments.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AndroidProjectTemplate.zip" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Key.snk" />
     <None Include="Template\.gitignore" />
     <None Include="Template\JavaShallowCopyForXamarinProject.iml" />
@@ -991,5 +988,8 @@
   -->
   <ItemGroup>
     <Folder Include="Template\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AndroidProjectTemplate.zip" />
   </ItemGroup>
 </Project>
