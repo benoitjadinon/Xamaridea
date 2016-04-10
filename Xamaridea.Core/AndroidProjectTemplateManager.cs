@@ -14,7 +14,7 @@ namespace Xamaridea.Core
 
 		public const string AppDataFolderName = "Xamaridea";
 
-		public const string TemplateFolderName = "Template_v.0.8";//TODO: use template zip md5 to compare versions instead ?
+		public const string TemplateFolderName = "Template_v.0.9";//TODO: use template zip md5 to compare versions instead ?
 		public const string TemplateCustomFolderName = "Template_Custom";
 
 		public const string ProjectsFolderName = "Projects";
