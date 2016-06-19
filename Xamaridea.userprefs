@@ -1,20 +1,18 @@
-﻿<Properties StartupItem="Xamaridea.Console/Xamaridea.Console.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Xamaridea.Core/Extensions/FileExtensions.cs">
+﻿<Properties StartupItem="Xamaridea.XamarinStudioPlugin/Xamaridea.XamarinStudioPlugin.csproj">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Xamaridea.XamarinStudioPlugin/Properties/AddinInfo.cs">
     <Files>
-      <File FileName="Xamaridea.Console/Program.cs" Line="5" Column="1" />
-      <File FileName="Xamaridea.Console/ConsoleReceiver.cs" Line="21" Column="41" />
-      <File FileName="Xamaridea.Core/ProjectsSynchronizer.cs" Line="169" Column="11" />
-      <File FileName="Xamaridea.Core/AndroidProjectTemplateManager.cs" Line="54" Column="26" />
-      <File FileName="Xamaridea.Core/Extensions/FileExtensions.cs" Line="72" Column="9" />
+      <File FileName="Xamaridea.XamarinStudioPlugin/Properties/Manifest.addin.xml" Line="9" Column="51" />
+      <File FileName="Xamaridea.XamarinStudioPlugin/Properties/AddinInfo.cs" Line="1" Column="1" />
+      <File FileName="Xamaridea.XamarinStudioPlugin/Properties/AssemblyInfo.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/bja/Workspaces/Xamarin/Xamaridea/Xamaridea.Console/Program.cs" line="69" column="1" />
-      <Breakpoint file="/Users/bja/Workspaces/Xamarin/Xamaridea/Xamaridea.Core/AndroidProjectTemplateManager.cs" line="119" column="1" />
-      <Breakpoint file="/Users/bja/Workspaces/Xamarin/Xamaridea/Xamaridea.Console/Program.cs" line="66" column="34" />
-    </BreakpointStore>
+    <Breakpoint file="/Users/bja/Workspaces/Xamarin/Xamaridea/Xamaridea.Console/Program.cs" line="69" column="1" />
+    <Breakpoint file="/Users/bja/Workspaces/Xamarin/Xamaridea/Xamaridea.Core/AndroidProjectTemplateManager.cs" line="119" column="1" />
+    <Breakpoint file="/Users/bja/Workspaces/Xamarin/Xamaridea/Xamaridea.Console/Program.cs" line="66" column="34" />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Xamaridea.Console PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.ItemProperties.Xamaridea.XamarinStudioPlugin PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>

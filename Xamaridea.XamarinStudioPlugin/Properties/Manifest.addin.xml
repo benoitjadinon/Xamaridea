@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionModel>
+    <Extension path = "/MonoDevelop/Ide/Commands/Edit">
+        <Command id = "Xamaridea.XSCommands.OpenInAndroidStudio"
+             _label = "Open In Android Studio"
+			_description = "Converts the project and open it in Android Studio"
+             defaultHandler = "Xamaridea.OpenInAndroidStudioHandler" />
+    </Extension>
+
+    <Extension path = "/MonoDevelop/Ide/ContextMenu/ProjectPad">
+		<Condition id="ItemType" value="Project">
+	        <CommandItem id="Xamaridea.XSCommands.OpenInAndroidStudio" />
+		</Condition>
+    </Extension>
+
+	<!--
+	<Extension path="/MonoDevelop/Ide/Commands/Edit">
+		<Command id="RedthAddin.EditProjectFile" _label="Edit Project File" _description="Opens the project file in a text editor for raw access" defaultHandler="RedthAddin.EditProjectFileCommandHandler" />
+	</Extension>
+	<Extension path="/MonoDevelop/Ide/ContextMenu/ProjectPad">
+		<Condition id="ItemType" value="Project">
+			<CommandItem id="RedthAddin.EditProjectFile"  insertafter="MonoDevelop.Ide.Commands.ProjectCommands.Clean" insertbefore="MonoDevelop.Ide.Commands.ProjectCommands.Unload" />
+		</Condition>
+	</Extension>
+	-->
+</ExtensionModel>

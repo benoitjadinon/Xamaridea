@@ -82,7 +82,6 @@
     <None Include="Template\.idea\gradle.xml" />
     <None Include="Template\.idea\misc.xml" />
     <None Include="Template\.idea\modules.xml" />
-    <None Include="Template\.idea\vcs.xml" />
     <None Include="Template\.idea\workspace.xml" />
     <None Include="Template\.idea\copyright\profiles_settings.xml" />
     <None Include="Template\.idea\libraries\appcompat_v7_22_2_0.xml" />

@@ -14,7 +14,7 @@ namespace Xamaridea.Core
 
 		public const string AppDataFolderName = "Xamaridea";
 
-		public const string TemplateFolderName = "Template_v.0.8";//TODO: use template zip md5 to compare versions instead ?
+		public const string TemplateFolderName = "Template_v.0.9";//TODO: use template zip md5 to compare versions instead ?
 		public const string TemplateCustomFolderName = "Template_Custom";
 
 		public const string ProjectsFolderName = "Projects";
@@ -57,9 +57,12 @@ namespace Xamaridea.Core
 			var gradleConfig = Path.Combine (tempNewProjectDir, Path.Combine (@"app", "build.gradle"));
 			FileExtensions.ReplacePlaceHolder(gradleConfig, XamarinResFolderVariable, xamarinResourcesDir, true);
 
-			AppendLog("updating local.properties");
-			var localProperties = Path.Combine (tempNewProjectDir, @"local.properties");
-			FileExtensions.ReplacePlaceHolder(localProperties, AndroidSDKFolderVariable, sdkPath ?? "$ANDROID_HOME", true);
+			var localProperties = Path.Combine(tempNewProjectDir, @"local.properties");
+			if (File.Exists(localProperties))
+			{
+				AppendLog("updating local.properties");
+				FileExtensions.ReplacePlaceHolder(localProperties, AndroidSDKFolderVariable, sdkPath ?? "$ANDROID_HOME", true);
+			}
 
 			return tempNewProjectDir;
 		}
