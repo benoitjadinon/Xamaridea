@@ -1,0 +1,12 @@
+<AddinProject appVersion="2.4">
+	<Project platforms="Mac Linux">
+		<AddinFile>Xamaridea.XamarinStudioPlugin/bin/Debug/Xamaridea.XamarinStudioPlugin.dll</AddinFile>
+		<BuildFile>Xamaridea.XamarinStudioPlugin.sln</BuildFile>
+		<BuildConfiguration>Debug</BuildConfiguration>
+	</Project>
+	<Project platforms="Win32">
+		<AddinFile>Xamaridea.XamarinStudioPlugin/bin/DebugWin32/Xamaridea.XamarinStudioPlugin.dll</AddinFile>
+		<BuildFile>Xamaridea.XamarinStudioPlugin.sln</BuildFile>
+		<BuildConfiguration>DebugWin32</BuildConfiguration>
+	</Project>
+</AddinProject>

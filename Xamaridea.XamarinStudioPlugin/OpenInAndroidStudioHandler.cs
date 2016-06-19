@@ -24,11 +24,13 @@ namespace Xamaridea
 			{
 				string idePath = AndroidIdeDetector.TryFindIdePath();
 
-				if (true){//idePath == null) {
+				if (idePath == null) {
 					idePath = OpenFilePicker();
-					//var dialog = new SignatureToolDialog();
-					//MessageService.ShowCustomDialog(dialog);
+					//TODO: store for next launches + fallbacks
 				}
+
+				if (idePath == null)
+					throw new Exception("Android Studio not configured");
 
 				var projectsSynchronizer = new ProjectsSynchronizer(projectDirectory, idePath);
 				await projectsSynchronizer.MakeResourcesSubdirectoriesAndFilesLowercase(async () => {
@@ -63,7 +65,7 @@ namespace Xamaridea
 
 			Gtk.FileChooserDialog filechooser =
 			   new Gtk.FileChooserDialog(
-				    string.Format("PPlease Select Android Studio{0} location", ext),
+				    string.Format("Please Select Android Studio{0} location", ext),
                     window,
 					FileChooserAction.Open,
 					"Cancel", ResponseType.Cancel,
