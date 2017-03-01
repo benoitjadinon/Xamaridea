@@ -1,7 +1,6 @@
 ﻿using MonoDevelop.Components.Commands;
 using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui;
-using Mono.TextEditor;
 using System;
 using MonoDevelop.Projects;
 using Xamaridea.Core;
