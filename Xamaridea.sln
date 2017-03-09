@@ -1,12 +1,8 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+
+Microsoft Visual Studio Solution File, Format Version 15.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamaridea.Console", "Xamaridea.Console\Xamaridea.Console.csproj", "{E9A218BC-08AD-4A1E-AEB1-03F04D2E3FEB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamaridea.VisualStudioPlugin", "Xamaridea.VisualStudioPlugin\Xamaridea.VisualStudioPlugin.csproj", "{742B4FD9-177F-4264-9A52-4E46267BC10F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FC3994D6-3308-4873-A08A-67458509CAF8}"
 	ProjectSection(SolutionItems) = preProject
 		IntegrationTests.testsettings = IntegrationTests.testsettings
@@ -14,11 +10,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		addin-project.xml = addin-project.xml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamaridea.Core", "Xamaridea.Core\Xamaridea.Core.csproj", "{A19B7464-8FCB-4743-A0C3-6E41722E7B72}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamaridea.DotNet", "Xamaridea.DotNet\Xamaridea.DotNet.csproj", "{08CA94DB-5787-44B9-8300-73258DFF4023}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamaridea.XamarinStudioPlugin", "Xamaridea.XamarinStudioPlugin\Xamaridea.XamarinStudioPlugin.csproj", "{D9D655CF-D44C-4317-849C-5753E75AFE05}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamaridea.DotNet.Core", "Xamaridea.DotNet.Core\Xamaridea.DotNet.Core.csproj", "{5DF2CE58-6761-4E4E-B377-8CF251FFA2D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndroidTestProject", "AndroidTestProject\AndroidTestProject.csproj", "{B7A0D7C5-B907-4C9B-A5CF-81274DD2EE71}"
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "AndroidTestProject", "AndroidTestProject\AndroidTestProject.csproj", "{E1F3C056-CBBE-4554-9A6D-5E27209392AF}"
+EndProject
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "Xamaridea.Console", "Xamaridea.Console\Xamaridea.Console.csproj", "{94A20E78-58DC-4538-AB5F-FEC78E5F8EAF}"
+EndProject
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "Xamaridea.XamarinStudioPlugin", "Xamaridea.XamarinStudioPlugin\Xamaridea.XamarinStudioPlugin.csproj", "{D01A6AE6-863E-4ADC-A5DA-B1AA73C82851}"
+EndProject
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "Xamaridea.VisualStudioPlugin", "Xamaridea.VisualStudioPlugin\Xamaridea.VisualStudioPlugin.csproj", "{5F1566B4-7AA9-47A7-BAB7-599CCEB7D1B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,26 +28,30 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E9A218BC-08AD-4A1E-AEB1-03F04D2E3FEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E9A218BC-08AD-4A1E-AEB1-03F04D2E3FEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E9A218BC-08AD-4A1E-AEB1-03F04D2E3FEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E9A218BC-08AD-4A1E-AEB1-03F04D2E3FEB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{742B4FD9-177F-4264-9A52-4E46267BC10F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{742B4FD9-177F-4264-9A52-4E46267BC10F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{742B4FD9-177F-4264-9A52-4E46267BC10F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{742B4FD9-177F-4264-9A52-4E46267BC10F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A19B7464-8FCB-4743-A0C3-6E41722E7B72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A19B7464-8FCB-4743-A0C3-6E41722E7B72}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A19B7464-8FCB-4743-A0C3-6E41722E7B72}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A19B7464-8FCB-4743-A0C3-6E41722E7B72}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D9D655CF-D44C-4317-849C-5753E75AFE05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D9D655CF-D44C-4317-849C-5753E75AFE05}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D9D655CF-D44C-4317-849C-5753E75AFE05}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D9D655CF-D44C-4317-849C-5753E75AFE05}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B7A0D7C5-B907-4C9B-A5CF-81274DD2EE71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7A0D7C5-B907-4C9B-A5CF-81274DD2EE71}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7A0D7C5-B907-4C9B-A5CF-81274DD2EE71}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7A0D7C5-B907-4C9B-A5CF-81274DD2EE71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08CA94DB-5787-44B9-8300-73258DFF4023}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08CA94DB-5787-44B9-8300-73258DFF4023}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08CA94DB-5787-44B9-8300-73258DFF4023}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08CA94DB-5787-44B9-8300-73258DFF4023}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DF2CE58-6761-4E4E-B377-8CF251FFA2D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DF2CE58-6761-4E4E-B377-8CF251FFA2D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DF2CE58-6761-4E4E-B377-8CF251FFA2D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DF2CE58-6761-4E4E-B377-8CF251FFA2D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1F3C056-CBBE-4554-9A6D-5E27209392AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1F3C056-CBBE-4554-9A6D-5E27209392AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1F3C056-CBBE-4554-9A6D-5E27209392AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1F3C056-CBBE-4554-9A6D-5E27209392AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94A20E78-58DC-4538-AB5F-FEC78E5F8EAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94A20E78-58DC-4538-AB5F-FEC78E5F8EAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94A20E78-58DC-4538-AB5F-FEC78E5F8EAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94A20E78-58DC-4538-AB5F-FEC78E5F8EAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D01A6AE6-863E-4ADC-A5DA-B1AA73C82851}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D01A6AE6-863E-4ADC-A5DA-B1AA73C82851}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D01A6AE6-863E-4ADC-A5DA-B1AA73C82851}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D01A6AE6-863E-4ADC-A5DA-B1AA73C82851}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F1566B4-7AA9-47A7-BAB7-599CCEB7D1B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F1566B4-7AA9-47A7-BAB7-599CCEB7D1B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F1566B4-7AA9-47A7-BAB7-599CCEB7D1B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F1566B4-7AA9-47A7-BAB7-599CCEB7D1B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

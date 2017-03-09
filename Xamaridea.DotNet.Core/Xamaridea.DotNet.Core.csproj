@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="System.IO" Version="4.3.0" />
+    <PackageReference Include="System.Diagnostics.Process" Version="4.3.0" />
+    <PackageReference Include="CommandLineParser.Unofficial" Version="2.0.275" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="AndroidIdeDetector.cs" />
+    <Compile Remove="AndroidIdeDetector.cs" />
+    <Compile Remove="AndroidIdeDetector.cs" />
+  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard1.5</TargetFramework>
+  </PropertyGroup>
+
+</Project>
