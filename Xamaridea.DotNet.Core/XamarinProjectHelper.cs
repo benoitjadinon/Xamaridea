@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Xamaridea.Core.Exceptions;
 using Xamaridea.Core.Extensions;
+using Xamaridea.Core.Helpers;
 
 namespace Xamaridea.Core
 {
@@ -16,11 +17,13 @@ namespace Xamaridea.Core
 		private bool _grantedPermissionsToChangeMainProject = false;
 
 		private readonly string _projectPath;
+		private readonly ILogger _logger;
 
 
-		public XamarinProjectHelper(string projectPath)
+		public XamarinProjectHelper(string projectPath, ILogger logger)
 		{
 			_projectPath = projectPath;
+			_logger = logger;
 		}
 
 		
@@ -66,29 +69,23 @@ namespace Xamaridea.Core
 				if (!_grantedPermissionsToChangeMainProject) {
 					//so we noticed that xamarin project has some needed directories in upper case, let's aks user to rename them
 					if (!await permissionAsker ()) {
-						AppendLog ("Operation cancelled by user");
+						_logger.AppendLog ("Operation cancelled by user");
 						throw new OperationCanceledException ("Cancelled by user");
 					}
 					_grantedPermissionsToChangeMainProject = true;
 				}
 
 				if (shouldRenameAxml) {
-					AppendLog ("Renaming {0} from axml to xml and to lowercase", name);
+					_logger.AppendLog ($"Renaming {name} from axml to xml and to lowercase");
 					FileExtensions.RenameFileExtensionAndMakeLowercase (filePath, "xml");
 					return true;
 				} else {
-					AppendLog ("Renaming {0} to lowercase", name);
+					_logger.AppendLog ($"Renaming {name} to lowercase");
 					FileExtensions.RenameFileOrFolderToLowercase (filePath);
 					return true;
 				}
 			}
 			return false;
-		}
-
-
-		private void AppendLog(string format, params object[] args)
-		{
-			Console.WriteLine(" > " + format, args);
 		}
 	}
 }

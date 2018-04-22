@@ -1,0 +1,34 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamaridea.DotNet.Core", "Xamaridea.DotNet.Core\Xamaridea.DotNet.Core.csproj", "{D21A1CB2-9F75-40E7-9343-5876BC111BB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamaridea.DotNet.Console", "Xamaridea.DotNet.Console\Xamaridea.DotNet.Console.csproj", "{90064A8B-DA34-4F4B-942B-89296ED32157}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamaridea.VisualStudioPlugin", "Xamaridea.VisualStudioPlugin\Xamaridea.VisualStudioPlugin.csproj", "{742B4FD9-177F-4264-9A52-4E46267BC10F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamaridea.XamarinStudioPlugin", "Xamaridea.XamarinStudioPlugin\Xamaridea.XamarinStudioPlugin.csproj", "{D9D655CF-D44C-4317-849C-5753E75AFE05}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D21A1CB2-9F75-40E7-9343-5876BC111BB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D21A1CB2-9F75-40E7-9343-5876BC111BB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D21A1CB2-9F75-40E7-9343-5876BC111BB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D21A1CB2-9F75-40E7-9343-5876BC111BB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90064A8B-DA34-4F4B-942B-89296ED32157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90064A8B-DA34-4F4B-942B-89296ED32157}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90064A8B-DA34-4F4B-942B-89296ED32157}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90064A8B-DA34-4F4B-942B-89296ED32157}.Release|Any CPU.Build.0 = Release|Any CPU
+		{742B4FD9-177F-4264-9A52-4E46267BC10F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{742B4FD9-177F-4264-9A52-4E46267BC10F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{742B4FD9-177F-4264-9A52-4E46267BC10F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{742B4FD9-177F-4264-9A52-4E46267BC10F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9D655CF-D44C-4317-849C-5753E75AFE05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9D655CF-D44C-4317-849C-5753E75AFE05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9D655CF-D44C-4317-849C-5753E75AFE05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9D655CF-D44C-4317-849C-5753E75AFE05}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
