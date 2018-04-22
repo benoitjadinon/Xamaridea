@@ -38,10 +38,10 @@ namespace Xamaridea.Core
 			return 25;//TODO
 		}
 
-		internal string GetPackageName()
+		internal string GetNamespace()
 		{
-			//TODO
-			throw new NotImplementedException();//.ToLowerInvariant()
+			//TODO : get from inside .csproj for better results
+			return Path.GetFileName(_projectPath).ToLowerInvariant();
 		}
 
 		public async Task<bool> MakeResourcesSubdirectoriesAndFilesLowercase(Func<Task<bool>> permissionAsker)
@@ -76,7 +76,7 @@ namespace Xamaridea.Core
 				}
 
 				if (shouldRenameAxml) {
-					_logger.AppendLog ($"Renaming {name} from axml to xml and to lowercase");
+					_logger.AppendLog ($"Renaming {name} from axml to xml");
 					FileExtensions.RenameFileExtensionAndMakeLowercase (filePath, "xml");
 					return true;
 				} else {

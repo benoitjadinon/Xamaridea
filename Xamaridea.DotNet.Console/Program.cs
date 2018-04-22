@@ -22,7 +22,7 @@ namespace Xamaridea.DotNet.Console
         class ApplicationArguments
         {
             [Option('p', "project", 
-                //Required = false,
+                Required = false,
                 HelpText = "Path to a Xamarin.Android .csproj file, otherwise using the first .csproj in current folder")]
             public string XamarinAndroidProjectFilePath { get; set; }
 
@@ -72,12 +72,14 @@ namespace Xamaridea.DotNet.Console
             }
             catch (Exception e)
             {
-                logger.AppendLog(e.ToString());;
+                logger.AppendLog(e.ToString());
+                System.Console.Read();
             }
         }
 
         private static readonly Func<Task<bool>> ConsolePermissionAsker = async () =>
         {
+            //return true;
             System.Console.WriteLine("Renaming XS assets (.xaml to .xml) ? (y/n)");
             var resp = System.Console.ReadKey();
             return resp.ToString().ToLowerInvariant() == "y";

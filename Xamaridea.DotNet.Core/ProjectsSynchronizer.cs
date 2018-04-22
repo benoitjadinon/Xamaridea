@@ -37,10 +37,10 @@ namespace Xamaridea.Core
 			await _xamarinProjectHelper.MakeResourcesSubdirectoriesAndFilesLowercase(permissionAsker);
 
 			_logger.AppendLog("Creating temp project");
-			var ideaProjectDir = _androidProjectHelper.CreateTempProject(_xamarinProjectHelper.GetAndroidVersion(), _xamarinProjectHelper.GetPackageName());
+			var ideaProjectDir = _androidProjectHelper.CreateTempProject(_xamarinProjectHelper.GetAndroidVersion(), _xamarinProjectHelper.GetNamespace());
 			_logger.AppendLog("Created project : {0}", ideaProjectDir);
 
-			_logger.AppendLog("Opening Android Studio");
+			_logger.AppendLog("Opening temp project");
 			var result = _androidStudioHelper.OpenAndWait(ideaProjectDir);
 
 			_logger.AppendLog("Android Studio closed, deleting temp project");

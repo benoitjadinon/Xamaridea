@@ -2,14 +2,16 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using CommandLine;
 using Xamaridea.Core.Helpers;
 
 namespace Xamaridea.Core
 {
     public class AndroidStudioHelperMac : BaseAndroidStudioHelper
     {
-        const string AppNameDefault = "Android Studio";
-        const string AppNameFallback = "IntelliJ IDEA";
+        const string AppNameDefault = "Android Studio.app";
+        const string AppNameFallback = "IntelliJ IDEA.app";
+        const string AppNameFallback2 = "IntelliJ IDEA Ultimate.app";
 
         private readonly ILogger _logger;
 
@@ -51,22 +53,29 @@ namespace Xamaridea.Core
             string path = null;
             try
             {
+                _logger.AppendLog($"searching for {ideName}...");
+                
                 Process proc = new Process();
                 proc.StartInfo.FileName = "/bin/bash";
                 proc.StartInfo.Arguments = $"-c '/System/Library/Frameworks/CoreServices.framework/Versions/A/" +
                                            $"Frameworks/LaunchServices.framework/Versions/A/Support/lsregister" +
-                                           $" -dump | grep -i '{ideName}''";
+                                           $" -dump | grep -w \"{ideName}\"'";
                 proc.StartInfo.UseShellExecute = false;
                 proc.StartInfo.RedirectStandardOutput = true;
                 proc.StartInfo.RedirectStandardError = true;
                 proc.StartInfo.CreateNoWindow = true;
                 proc.Start();
 
-                path = proc.StandardOutput.ReadLine(); //TODO: async
-                if (path != null && path.Contains(":"))
+                string line;
+                while (!proc.StandardOutput.EndOfStream) 
                 {
-                    var paths = path.Trim().Split(':');
-                    path = paths.Last()?.Trim();
+                    line = proc.StandardOutput.ReadLine();
+                    if (line.Contains(":") && line.Contains("/Applications"))
+                    {
+                        var paths = line.Trim().Split(':');
+                        path = paths.Last()?.Trim();
+                        break;
+                    }
                 }
             }
             catch (Exception ignored)
@@ -76,9 +85,14 @@ namespace Xamaridea.Core
             
             if (path == null && ideName == AppNameDefault)
             {
-                _logger.AppendLog("searching for IntelliJ IDEA...");
                 return GetMacAppPath(AppNameFallback);
             }
+
+            if (path == null && ideName == AppNameFallback)
+            {
+                return GetMacAppPath(AppNameFallback2);
+            }
+            
             return path;
         }
     }
